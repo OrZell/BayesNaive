@@ -22,6 +22,10 @@ class PrimaryDF:
         return self.PrimaryTable[self.TargetColumn].unique().tolist()
 
     @property
-    def AllRelevanteColumns(self):
+    def AllRelevantColumns(self):
         return self.PrimaryTable.columns.tolist()[1:-1]
+
+    @property
+    def GetTheDF(self):
+        return self.PrimaryTable
 

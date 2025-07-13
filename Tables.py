@@ -1,11 +1,14 @@
 import pandas as pd
 import copy
 
-PrimaryTable = pd.read_csv('DemoPhishing.csv')
+first_file = pd.read_csv('Data/phishing.csv', index_col='Index').dropna().drop_duplicates().reset_index(drop=True)
+print(first_file.shape)
+
+PrimaryTable = first_file[first_file.index < 0.7*len(first_file)]
 PrimaryTableLen = PrimaryTable.shape[0]
 TargetColumn = PrimaryTable.columns.tolist()[-1]
 uniquesTargets = PrimaryTable[TargetColumn].unique().tolist()
-allColumns = PrimaryTable.columns.tolist()[1:-1]
+allColumns = PrimaryTable.columns.tolist()[:-1]
 
 AllPrecents = {}
 AllTables = {}
@@ -47,30 +50,35 @@ for Target in AllPrecents:
     for Column in AllPrecents[Target]:
         for Unique in AllPrecents[Target][Column][0]:
             precents = AllPrecents[Target][Column][0][Unique] / AllPrecents[Target][Column][1]
-            AllPrecents[Target][Column][0][Unique] = float(precents)
+            AllPrecents[Target][Column][0][Unique] = precents
 
 print(AllPrecents)
 print(AllPrecentsPre)
 
-age = input('enter age:')
-income = input('enter income:')
-student = input('enter student:')
-rating = input('enter rating:')
+FileToCheck = first_file[first_file.index >= 0.7 * len(first_file)]
+fileRows = FileToCheck.drop(FileToCheck.columns[-1], axis=1).values.tolist()
+rightAnswers = FileToCheck[FileToCheck.columns[-1]].tolist()
 
-CheckTheRow = PrimaryTable[(PrimaryTable[allColumns[0]] == age) & (PrimaryTable[allColumns[1]] == income) & (PrimaryTable[allColumns[2]] == student) & (PrimaryTable[allColumns[3]] == rating)].index.tolist()
-if CheckTheRow:
-    print('Contained')
-    print(PrimaryTable.loc[CheckTheRow[0]][TargetColumn])
-else:
-    print('Not Contained')
+print(len(allColumns), len(fileRows[0]))
+answers = []
+for row in fileRows:
     PrecentsByTarget = {}
     for uniqueTarget in uniquesTargets:
-        num = AllPrecents[uniqueTarget][allColumns[0]][0][age]
-        num = num * AllPrecents[uniqueTarget][allColumns[1]][0][income]
-        num = num * AllPrecents[uniqueTarget][allColumns[2]][0][student]
-        num = num * AllPrecents[uniqueTarget][allColumns[3]][0][rating]
+        num = 1
+        for i in range(len(row)):
+            num = num * AllPrecents[uniqueTarget][allColumns[i]][0][row[i]]
         num = num * AllTablesLen[uniqueTarget] / PrimaryTableLen
         PrecentsByTarget[uniqueTarget] = num
+    sorted_dict = list(dict(sorted(PrecentsByTarget.items(), key=lambda item: item[1])).keys())
+    answers.append(sorted_dict[1])
 
-    sorted_dict = dict(sorted(PrecentsByTarget.items(), key=lambda item: item[1]))
-    print(sorted_dict)
+print(rightAnswers)
+print(answers)
+depends = []
+for i in range(len(rightAnswers)):
+    if rightAnswers[i] == answers[i]:
+        depends.append(True)
+    else:
+        depends.append(False)
+
+print(depends.count(True) / len(depends))

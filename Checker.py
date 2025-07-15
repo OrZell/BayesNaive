@@ -1,36 +1,40 @@
 from MainModel import MainModel
-import pandas as pd
-
 
 class Checker:
 
-    def __init__(self, Model:MainModel):
-        # self.CheckedTable = None
-        # self.AllColumns = None
-        self.Model = Model
+    def __init__(self, MainModel:MainModel, url):
+        self.Model = MainModel
+        self.URL = url.split(',')
+        self.itemsList = []
 
-    def ReadFromSameDFWith03(self, checkedTable:pd.DataFrame):
-        self.CheckedTable = checkedTable[checkedTable.index > 0.7 * len(checkedTable)]
-        self.AllColumns = checkedTable.columns.tolist()[:-1]
+    def Checks(self):
+        # lenRow = len(self.URL)
+        # lenExempleRow = len(self.Model.AllRelevantColumns)
+        # if (lenRow != lenExempleRow) & (lenRow - 1 != lenExempleRow) & (lenRow != lenExempleRow - 1):
+        #     raise 'Not Valid Input'
 
-    def ReadFromNewDF(self, checkedTable:pd.DataFrame):
-        self.CheckedTable = checkedTable
-        self.AllColumns = checkedTable.columns.tolist()[:-1]
+        for i in range(len(self.URL)):
+            try:
+                kind = type(self.Model.ExempleRow[i])
+                self.itemsList.append(kind(self.URL[i]))
+            except:
+                self.itemsList.append(self.URL[i])
 
-    def CheckEveryRow(self):
-        self.Answers = []
-        self.ListOfRows = self.CheckedTable.drop(self.CheckedTable.columns[-1], axis=1).values.tolist()
-        self.RightAnswers = self.CheckedTable[self.CheckedTable.columns[-1]].tolist()
+    def CheckUrlRow(self):
+
         AllPrecents = self.Model.GetTheModel()
+        AllColumns = self.Model.AllRelevantColumns
+        ALltablesLen = self.Model.AllTablesLen
+        LenOfPrimaryTable = self.Model.LenOfPrimaryTable
+        answers = {}
 
-        for row in self.ListOfRows:
-            PrecentsByTragets = {}
-            for uniqueTarget in self.Model.UniquesInTargetColumn:
-                num = 1
-                for i in range(len(row)):
-                    num = num * AllPrecents[uniqueTarget][self.AllColumns[i]][0][row[i]]
-                num = num * self.Model.AllTablesLen[uniqueTarget] / self.Model.LenOfPrimaryTable
-                PrecentsByTragets[uniqueTarget] = num
-            sorted_dict = list(dict(sorted(PrecentsByTragets.items(), key=lambda item: item[1])).keys())
-            self.Answers.append(sorted_dict[-1])
-        return self.RightAnswers, self.Answers
+        for Unique in AllPrecents:
+            num = 1
+            i = 0
+            while i < len(self.itemsList):
+                num = num * AllPrecents[Unique][AllColumns[i]][0][self.itemsList[i]]
+                i += 1
+            num = num * ALltablesLen[Unique] / LenOfPrimaryTable
+            answers[Unique] = num
+        sorted_dict = list(dict(sorted(answers.items(), key=lambda item: item[1])).keys())
+        return sorted_dict[-1]

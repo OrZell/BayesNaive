@@ -4,10 +4,13 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
+@app.get('/')
+def root():
+    return 'Please Enter Data'
 
-@app.get('/{name}')
-async def root(name):
-    manager = Manager(name)
+@app.get('/{Data}')
+async def Naive(Data):
+    manager = Manager(Data)
     return manager.run()
 
 if __name__ == '__main__':

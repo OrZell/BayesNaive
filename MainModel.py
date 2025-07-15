@@ -1,14 +1,14 @@
-from PrimaryDF import PrimaryDF
 import pandas as pd
 
 class MainModel:
 
-    def __init__(self, MainDF:PrimaryDF):
-        self.PrimaryDF = MainDF.GetTheDF()[MainDF.GetTheDF().index <= 0.7 * MainDF.LenOfPrimaryTable()]
-        self.LenOfPrimaryTable = MainDF.LenOfPrimaryTable()
-        self.TargetColumn = MainDF.TargetColumn()
-        self.UniquesInTargetColumn = MainDF.UniquesInTargetColumn()
-        self.AllRelevantColumns = MainDF.AllRelevantColumns()
+    def __init__(self, MainDF:pd.DataFrame):
+        self.PrimaryDF = MainDF
+        self.ExempleRow = MainDF.iloc[0].tolist()
+        self.LenOfPrimaryTable = MainDF.shape[0]
+        self.TargetColumn = MainDF.columns.tolist()[-1]
+        self.UniquesInTargetColumn = MainDF[self.TargetColumn].unique().tolist()
+        self.AllRelevantColumns = MainDF.columns.tolist()[:-1]
         self.AllPrecents = {}
         self.AllTables = {}
         self.AllTablesLen = {}

@@ -6,8 +6,8 @@ from Logger import Logger
 class Manager:
 
     def __init__(self, url):
-        self.CsvFile = ReadCSV('../Data/phishing.csv').GetCSV()
-        self.Logger = Logger('../Data/Logs.txt')
+        self.CsvFile = ReadCSV('/app/Data/phishing.csv').GetCSV()
+        self.Logger = Logger('/app/Data/Logs.txt')
         self.URL = url
         self.Logger.Log(f'Request With URL Data - {url}')
 

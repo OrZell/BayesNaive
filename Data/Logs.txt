@@ -1,3 +1,40 @@
 07/15/25 12:33:59 - Request With URL Data - 1,1,1,1,1,-1,0,1,-1,1,1,-1,1,0,-1,-1,1,1,0,1,1,1,1,-1,-1,0,-1,1,1,1
 07/15/25 12:33:59 - Done Training The Model
 07/15/25 12:33:59 - Process The URL Data
+07/23/25 10:50:34 - Request With URL Data - favicon.ico
+07/23/25 10:50:34 - Done Training The Model
+07/23/25 10:50:34 - Process The URL Data
+07/23/25 10:50:42 - Request With URL Data - 1
+07/23/25 10:50:42 - Done Training The Model
+07/23/25 10:50:42 - Process The URL Data
+07/23/25 10:50:42 - Request With URL Data - favicon.ico
+07/23/25 10:50:42 - Done Training The Model
+07/23/25 10:50:42 - Process The URL Data
+07/23/25 10:51:41 - Request With URL Data - favicon.ico
+07/23/25 10:51:41 - Done Training The Model
+07/23/25 10:51:41 - Process The URL Data
+07/23/25 10:51:46 - Request With URL Data - 1
+07/23/25 10:51:46 - Done Training The Model
+07/23/25 10:51:46 - Process The URL Data
+07/23/25 10:51:46 - Request With URL Data - favicon.ico
+07/23/25 10:51:46 - Done Training The Model
+07/23/25 10:51:46 - Process The URL Data
+07/23/25 10:52:01 - Request With URL Data - 1,1,1,1,1,-1,0,1,-1,1,1,-1,1,0,-1,-1,1,1,0,1,1,1,1,-1,-1,0,-1,1,1,1
+07/23/25 10:52:01 - Done Training The Model
+07/23/25 10:52:01 - Process The URL Data
+07/23/25 10:52:01 - Request With URL Data - favicon.ico
+07/23/25 10:52:01 - Done Training The Model
+07/23/25 10:52:01 - Process The URL Data
+07/23/25 10:52:52 - Request With URL Data - favicon.ico
+07/23/25 10:52:52 - Done Training The Model
+07/23/25 10:52:52 - Process The URL Data
+07/23/25 10:54:55 - Request With URL Data - favicon.ico
+07/23/25 10:54:55 - Done Training The Model
+07/23/25 10:54:55 - Process The URL Data
+07/23/25 10:56:39 - Request With URL Data - 1,1,1,1,1,1
+07/23/25 10:56:39 - Done Training The Model
+07/23/25 10:56:39 - Process The URL Data
+07/23/25 11:00:53 - Request With URL Data - 1,1,1,1,1,1
+07/23/25 11:00:53 - Done Training The Model
+07/23/25 11:00:53 - How The ModelString Is - 0.9087799315849487
+07/23/25 11:00:53 - Process The URL Data

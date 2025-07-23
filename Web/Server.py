@@ -6,11 +6,11 @@ app = FastAPI()
 
 @app.get('/')
 def root():
-    return 'Please Enter Data'
+    return 'Please Enter Data In The URL'
 
-@app.get('/{Data}')
-async def Naive(Data):
-    manager = Manager(Data)
+@app.get('/check')
+async def Naive(data):
+    manager = Manager(data)
     return manager.run()
 
 if __name__ == '__main__':

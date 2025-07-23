@@ -1,5 +1,6 @@
 from ReadCSV import ReadCSV
 from MainModel import MainModel
+from Tester import Tester
 from Checker import Checker
 from Logger import Logger
 
@@ -16,6 +17,11 @@ class Manager:
         self.MainModel.DoAllTheSession()
         self.Logger.Log('Done Training The Model')
 
+    def TestTheModel(self):
+        self.Tester = Tester(self.CsvFile, self.MainModel)
+        right = self.Tester.Test()
+        self.Logger.Log(f'How Strong The Model Is - {right}')
+
     def load_from_url(self):
         self.Checker = Checker(self.MainModel, self.URL)
         self.Checker.Checks()
@@ -24,5 +30,6 @@ class Manager:
 
     def run(self):
         self.TrainTheModel()
+        self.TestTheModel()
         return self.load_from_url()
 

@@ -3,7 +3,7 @@ import pandas as pd
 class MainModel:
 
     def __init__(self, MainDF:pd.DataFrame):
-        self.PrimaryDF = MainDF
+        self.PrimaryDF = MainDF[MainDF.index > 0.7*MainDF.shape[0]]
         self.ExempleRow = MainDF.iloc[0].tolist()
         self.LenOfPrimaryTable = MainDF.shape[0]
         self.TargetColumn = MainDF.columns.tolist()[-1]

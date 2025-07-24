@@ -1,5 +1,4 @@
 from Frontend.Manager import Manager
-import uvicorn
 from fastapi import FastAPI
 
 app = FastAPI()

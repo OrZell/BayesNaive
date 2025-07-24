@@ -1,9 +1,10 @@
-from Frontend.Checker import Checker
+from Checker import Checker
 
 class Manager:
 
     def __init__(self):
-        self.j = 'j'
+        self.URL = None
+        self.Checker = None
 
     def checker(self):
         self.Checker = Checker()

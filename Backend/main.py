@@ -6,25 +6,40 @@ app = FastAPI()
 BM = BackendManager()
 BM.DoAll()
 
+import json
+
+def encode_dict(d: dict) -> dict:
+    """המרת מפתחות שאינם סטרינגים למחרוזות עם מידע על הטיפוס"""
+    def encode_key(k):
+        return {"__key__": str(k), "__type__": type(k).__name__}
+
+    def encode_item(obj):
+        if isinstance(obj, dict):
+            return {json.dumps(encode_key(k)): encode_item(v) for k, v in obj.items()}
+        elif isinstance(obj, list):
+            return [encode_item(x) for x in obj]
+        else:
+            return obj
+
+    return encode_item(d)
+
+
 @app.get('/GetTheModel')
 def GetTheModel():
-    return BM.MainModel.GetTheModel()
+    return encode_dict(BM.MainModel.GetTheModel())
 
 @app.get('/AllRelevantColumns')
 def AllRelevantColumns():
-    return BM.MainModel.AllRelevantColumns
+    return encode_dict(BM.MainModel.AllRelevantColumns)
 
 @app.get('/AllTablesLen')
 def AllTablesLen():
-    return BM.MainModel.AllTablesLen
+    return encode_dict(BM.MainModel.AllTablesLen)
 
 @app.get('/LenOfPrimaryTable')
 def LenOfPrimaryTable():
-    return BM.MainModel.LenOfPrimaryTable
+    return encode_dict(BM.MainModel.LenOfPrimaryTable)
 
 @app.get('/ExempleRow')
 def ExempleRow():
-    return BM.MainModel.ExempleRow
-
-if __name__ == '__main__':
-    uvicorn.run(app, host='127.0.0.1', port=8000)
+    return encode_dict(BM.MainModel.ExempleRow)

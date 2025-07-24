@@ -5,7 +5,7 @@ from Tester import Tester
 class BackendManager:
 
     def __init__(self):
-        self.CsvFile = ReadCSV(r'data/phishing.csv').GetCSV()
+        self.CsvFile = ReadCSV(r'app/Data/phishing.csv').GetCSV()
 
     def TrainingModel(self):
         self.MainModel = MainModel(self.CsvFile)
@@ -16,7 +16,7 @@ class BackendManager:
 
     def DoAll(self):
         self.TrainingModel()
-        self.TrainingModel()
+        self.TestTheModel()
 
     def GetTheModel(self):
         return self.MainModel.GetTheModel()

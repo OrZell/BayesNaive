@@ -12,8 +12,5 @@ def root():
     return 'Please Enter Data In The URL'
 
 @app.get('/check')
-async def Naive(data):
-    return await manager.load_from_url(data)
-
-if __name__ == '__main__':
-    uvicorn.run(app, host='127.0.0.1', port=8001)
+def Naive(data):
+    return manager.load_from_url(data)

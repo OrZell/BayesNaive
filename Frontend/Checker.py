@@ -1,16 +1,43 @@
 import requests
+import json
 
 class Checker:
 
     def __init__(self):
-        self.API_LINK = 'http://127.0.0.1:8000/'
+        self.API_LINK = 'http://backend:8000/'
+
+
+    def decode_dict(self, d: dict):
+
+        def decode_key(k):
+            key_info = json.loads(k)
+            raw = key_info["__key__"]
+            t = key_info["__type__"]
+            if t == "int":
+                return int(raw)
+            elif t == "float":
+                return float(raw)
+            elif t == "bool":
+                return raw == "True"
+            else:
+                return raw  # str
+
+        def decode_item(obj):
+            if isinstance(obj, dict):
+                return {decode_key(k): decode_item(v) for k, v in obj.items()}
+            elif isinstance(obj, list):
+                return [decode_item(x) for x in obj]
+            else:
+                return obj
+
+        return decode_item(d)
 
     def assign(self):
-        self.AllPrecents = self.Reqs('GetTheModel')
-        self.AllColumns = self.Reqs('AllRelevantColumns')
-        self.AllTablesLen = self.Reqs('AllTablesLen')
-        self.LenOfPrimaryTable = self.Reqs('LenOfPrimaryTable')
-        self.exmpleRow = self.Reqs('ExempleRow')
+        self.AllPrecents = self.decode_dict(self.Reqs('GetTheModel'))
+        self.AllColumns = self.decode_dict(self.Reqs('AllRelevantColumns'))
+        self.AllTablesLen = self.decode_dict(self.Reqs('AllTablesLen'))
+        self.LenOfPrimaryTable = self.decode_dict(self.Reqs('LenOfPrimaryTable'))
+        self.exmpleRow = self.decode_dict(self.Reqs('ExempleRow'))
 
 
     def Reqs(self, resource):
@@ -22,41 +49,22 @@ class Checker:
         else:
             raise 'Err'
 
-    # def Checks(self):
-    #     # lenRow = len(self.URL)
-    #     # lenExempleRow = len(self.Model.AllRelevantColumns)
-    #     # if (lenRow != lenExempleRow) & (lenRow - 1 != lenExempleRow) & (lenRow != lenExempleRow - 1):
-    #     #     raise 'Not Valid Input'
-    #
-    #     exmpleRow = self.Reqs('ExempleRow')
-    #
-    #     for i in range(len(self.URL)):
-    #         try:
-    #             kind = type(exmpleRow[i])
-    #             self.itemsList.append(kind(self.URL[i]))
-    #         except:
-    #             self.itemsList.append(self.URL[i])
-
     def Checks(self, url):
+        # lenRow = len(self.URL)
+        # lenExempleRow = len(self.Model.AllRelevantColumns)
+        # if (lenRow != lenExempleRow) & (lenRow - 1 != lenExempleRow) & (lenRow != lenExempleRow - 1):
+        #     raise 'Not Valid Input'
+
         self.URL = url.split(',')
         self.itemsList = []
+        exmpleRow = self.Reqs('ExempleRow')
+
         for i in range(len(self.URL)):
-            example_val = self.exmpleRow[i]
-            example_type = type(example_val)
-
             try:
-                if example_type == bool:
-                    val = self.URL[i].strip().lower() in ['true', '1', 'yes']
-                elif example_type == int:
-                    val = int(float(self.URL[i]))  # תמיכה גם ב"5.0"
-                elif example_type == float:
-                    val = float(self.URL[i])
-                else:
-                    val = example_type(self.URL[i])
+                kind = type(exmpleRow[i])
+                self.itemsList.append(kind(self.URL[i]))
             except:
-                val = self.URL[i]
-
-            self.itemsList.append(val)
+                self.itemsList.append(self.URL[i])
 
     def CheckUrlRow(self):
 
@@ -66,16 +74,7 @@ class Checker:
             num = 1
             i = 0
             while i < len(self.itemsList):
-                print(f"{Unique}")
-                print(f"{self.AllColumns[i]}")
-                print(f"{self.itemsList[i]}")
-                print(self.AllPrecents)
-                one = self.AllPrecents[Unique]
-                two = one[self.AllColumns[i]][0]
-                three = two[str(self.itemsList[i])]
-                # num = num * self.AllPrecents[Unique][self.AllColumns[i]][0][self.itemsList[i]]
-                num = num * three
-                print(num)
+                num = num * self.AllPrecents[Unique][self.AllColumns[i]][0][self.itemsList[i]]
                 i += 1
             num = num * self.AllTablesLen[Unique] / self.LenOfPrimaryTable
             answers[Unique] = num

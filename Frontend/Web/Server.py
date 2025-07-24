@@ -1,4 +1,4 @@
-from Frontend.Manager import Manager
+from Manager import Manager
 from fastapi import FastAPI
 
 app = FastAPI()

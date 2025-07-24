@@ -1,5 +1,5 @@
 import pandas as pd
-from MainModel import MainModel
+from Backend.MainModel import MainModel
 
 
 class Tester:

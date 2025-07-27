@@ -39,19 +39,6 @@ class MainModel:
                     self.AllPrecents[uniquePrime][col][0][unique] = counts
                 self.AllPrecents[uniquePrime][col].append(self.AllTablesLen[uniquePrime])
 
-    # def LoadNumbersToAllPrecents(self):
-    #     for uniquePrime in self.UniquesInTargetColumn:
-    #         for col in self.AllRelevantColumns:
-    #             self.AllPrecents[uniquePrime][col] = [{}]
-    #             uniques = self.PrimaryDF[col].unique().tolist()
-    #             for unique in uniques:
-    #                 listCount = self.PrimaryDF[self.PrimaryDF[self.TargetColumn] == uniquePrime][col].tolist()
-    #                 counts = listCount.count(unique)
-    #                 if counts == 0:
-    #                     self.IsThereZeroes = True
-    #                 self.AllPrecents[uniquePrime][col][0][unique] = counts
-    #             self.AllPrecents[uniquePrime][col].append(self.AllTablesLen[uniquePrime])
-
     def CleanZeroes(self):
         if self.IsThereZeroes:
             for Target in self.AllPrecents:

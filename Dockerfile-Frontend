@@ -2,11 +2,11 @@ FROM python:slim
 
 WORKDIR /app
 
-COPY requirements.txt .
+COPY Frontend/requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY Frontend .
 
 EXPOSE 8001
 

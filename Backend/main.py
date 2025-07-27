@@ -1,6 +1,5 @@
 from BackendManager import BackendManager
 from fastapi import FastAPI
-import uvicorn
 
 app = FastAPI()
 BM = BackendManager()
@@ -9,7 +8,6 @@ BM.DoAll()
 import json
 
 def encode_dict(d: dict) -> dict:
-    """המרת מפתחות שאינם סטרינגים למחרוזות עם מידע על הטיפוס"""
     def encode_key(k):
         return {"__key__": str(k), "__type__": type(k).__name__}
 

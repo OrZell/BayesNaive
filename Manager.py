@@ -1,4 +1,5 @@
 from ReadCSV import ReadCSV
+from CleanFile import CleanFile
 from MainModel import MainModel
 from Tester import Tester
 from Checker import Checker
@@ -6,11 +7,17 @@ from Logger import Logger
 
 class Manager:
 
-    def __init__(self, url):
+    def __init__(self):
         self.CsvFile = ReadCSV('../Data/phishing.csv').GetCSV()
         self.Logger = Logger('../Data/Logs.txt')
-        self.URL = url
-        self.Logger.Log(f'Request With URL Data - {url}')
+
+    def CleanCSV(self):
+        self.Cleaner = CleanFile(self.CsvFile)
+        self.Cleaner.SetIndex()
+        self.Cleaner.DropNull()
+        self.Cleaner.DropDuplicates()
+        self.Cleaner.ResetIndex()
+        self.CsvFile = self.Cleaner.GetFile()
 
     def TrainTheModel(self):
         self.MainModel = MainModel(self.CsvFile)
@@ -22,14 +29,14 @@ class Manager:
         right = self.Tester.Test()
         self.Logger.Log(f'How The ModelString Is - {right}')
 
-    def load_from_url(self):
-        self.Checker = Checker(self.MainModel, self.URL)
+    def load_from_url(self, url):
+        self.Checker = Checker(self.MainModel, url)
+        self.Logger.Log(f'Request With URL Data - {url}')
         self.Checker.Checks()
-        self.Logger.Log('Process The URL Data')
         return self.Checker.CheckUrlRow()
 
     def run(self):
+        self.CleanCSV()
         self.TrainTheModel()
         self.TestTheModel()
-        return self.load_from_url()
 

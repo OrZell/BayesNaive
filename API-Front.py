@@ -1,9 +1,9 @@
-from Manager import Manager
+from FrontManager import FrontManager
 from fastapi import FastAPI
 
 app = FastAPI()
 
-manager = Manager()
+manager = FrontManager()
 manager.checker()
 
 @app.get('/')

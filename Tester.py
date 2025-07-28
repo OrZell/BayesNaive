@@ -1,10 +1,10 @@
 import pandas as pd
-from MainModel import MainModel
+from Trainer import Trainer
 
 
 class Tester:
 
-    def __init__(self, MainDF:pd.DataFrame, MainModel:MainModel):
+    def __init__(self, MainDF:pd.DataFrame, MainModel:Trainer):
         self.TesterDF = MainDF[MainDF.index >= 0.7*MainDF.shape[0]]
         self.Model = MainModel
         self.AllPrecents = self.Model.GetTheModel()

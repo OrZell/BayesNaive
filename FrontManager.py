@@ -1,13 +1,13 @@
-from Checker import Checker
+from Classifier import Classifier
 
-class Manager:
+class FrontManager:
 
     def __init__(self):
         self.URL = None
         self.Checker = None
 
     def checker(self):
-        self.Checker = Checker()
+        self.Checker = Classifier()
         self.Checker.assign()
 
     def load_from_url(self, url):

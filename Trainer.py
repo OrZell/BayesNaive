@@ -1,6 +1,6 @@
 import pandas as pd
 
-class MainModel:
+class Trainer:
 
     def __init__(self, MainDF:pd.DataFrame):
         self.PrimaryDF = MainDF[MainDF.index < 0.7*MainDF.shape[0]]

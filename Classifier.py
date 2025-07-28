@@ -3,43 +3,50 @@ from AuxiFuncs import AuxiFuncs
 class Classifier:
 
     def __init__(self):
-        self.API_LINK = 'http://backend:8000/'
+        self.API_LINK = 'http://project-v2-backend:8000/'
         self.decode_dict = AuxiFuncs.decode_dict
-        self.Reqs = AuxiFuncs.Reqs
+        self.Reqs = AuxiFuncs.reqs
+        self.AllPrecents = None
+        self.AllColumns = None
+        self.AllTablesLen = None
+        self.LenOfPrimaryTable = None
+        self.ExempleRow = None
+        self.URL = None
+        self.ItemsList = None
 
-    def assign(self):
+
+    def assign_values(self):
         self.AllPrecents = self.decode_dict(self.Reqs(self.API_LINK + 'GetTheModel'))
         self.AllColumns = self.decode_dict(self.Reqs(self.API_LINK + 'AllRelevantColumns'))
         self.AllTablesLen = self.decode_dict(self.Reqs(self.API_LINK + 'AllTablesLen'))
         self.LenOfPrimaryTable = self.decode_dict(self.Reqs(self.API_LINK + 'LenOfPrimaryTable'))
-        self.exmpleRow = self.decode_dict(self.Reqs(self.API_LINK + 'ExempleRow'))
+        self.ExempleRow = self.decode_dict(self.Reqs(self.API_LINK + 'ExempleRow'))
 
-    def Checks(self, url):
+    def check_the_row_from_url(self, url):
         # lenRow = len(self.URL)
         # lenExempleRow = len(self.Model.AllRelevantColumns)
         # if (lenRow != lenExempleRow) & (lenRow - 1 != lenExempleRow) & (lenRow != lenExempleRow - 1):
         #     raise 'Not Valid Input'
 
         self.URL = url.split(',')
-        self.itemsList = []
-        exmpleRow = self.Reqs('ExempleRow')
+        self.ItemsList = []
 
         for i in range(len(self.URL)):
             try:
-                kind = type(exmpleRow[i])
-                self.itemsList.append(kind(self.URL[i]))
+                kind = type(self.ExempleRow[i])
+                self.ItemsList.append(kind(self.URL[i]))
             except:
-                self.itemsList.append(self.URL[i])
+                self.ItemsList.append(self.URL[i])
 
-    def CheckUrlRow(self):
+    def check_url_row(self):
 
         answers = {}
 
         for Unique in self.AllPrecents:
             num = 1
             i = 0
-            while i < len(self.itemsList):
-                num = num * self.AllPrecents[Unique][self.AllColumns[i]][0][self.itemsList[i]]
+            while i < len(self.ItemsList):
+                num = num * self.AllPrecents[Unique][self.AllColumns[i]][0][self.ItemsList[i]]
                 i += 1
             num = num * self.AllTablesLen[Unique] / self.LenOfPrimaryTable
             answers[Unique] = num

@@ -1,12 +1,11 @@
 from BackManager import BackManager
 from fastapi import FastAPI
 from AuxiFuncs import AuxiFuncs
-import uvicorn
 
 app = FastAPI()
 
 BM = BackManager()
-BM.LoadTrainTest()
+BM.load_train_test()
 
 encode_dict = AuxiFuncs.encode_dict
 
@@ -16,17 +15,17 @@ def get_the_model():
     return encode_dict(BM.Trainer.get_the_model())
 
 @app.get('/AllRelevantColumns')
-def AllRelevantColumns():
+def all_relevant_columns():
     return encode_dict(BM.Trainer.AllRelevantColumns)
 
 @app.get('/AllTablesLen')
-def AllTablesLen():
+def all_tables_len():
     return encode_dict(BM.Trainer.AllTablesLen)
 
 @app.get('/LenOfPrimaryTable')
-def LenOfPrimaryTable():
+def len_of_primary_table():
     return encode_dict(BM.Trainer.LenOfPrimaryTable)
 
 @app.get('/ExempleRow')
-def ExempleRow():
+def exemple_row():
     return encode_dict(BM.Trainer.ExempleRow)

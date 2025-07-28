@@ -45,7 +45,7 @@ class AuxiFuncs:
         return decode_item(d)
 
     @staticmethod
-    def Reqs(url):
+    def reqs(url):
         response = requests.get(url)
         status = response.status_code
         if status == 200:

@@ -8,9 +8,9 @@ class FrontManager:
 
     def checker(self):
         self.Checker = Classifier()
-        self.Checker.assign()
+        self.Checker.assign_values()
 
     def load_from_url(self, url):
         self.URL = url
-        self.Checker.Checks(self.URL)
-        return self.Checker.CheckUrlRow()
+        self.Checker.check_the_row_from_url(self.URL)
+        return self.Checker.check_url_row()

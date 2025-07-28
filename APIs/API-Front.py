@@ -11,5 +11,5 @@ def root():
     return 'Please Enter Data In The URL'
 
 @app.get('/check')
-def Naive(data):
+def naive(data):
     return manager.load_from_url(data)

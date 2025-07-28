@@ -5,9 +5,10 @@ class Logger:
     def __init__(self, path):
         self.PATH = path
 
-    def CurrentTime(self):
+    @staticmethod
+    def current_time():
         return datetime.datetime.now().strftime('%D %T')
 
-    def Log(self, message):
+    def log(self, message):
         with open(self.PATH, 'a') as file:
-            file.write(f'{self.CurrentTime()} - {message}\n')
+            file.write(f'{self.current_time()} - {message}\n')

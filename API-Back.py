@@ -12,8 +12,8 @@ encode_dict = AuxiFuncs.encode_dict
 
 
 @app.get('/GetTheModel')
-def GetTheModel():
-    return encode_dict(BM.Trainer.GetTheModel())
+def get_the_model():
+    return encode_dict(BM.Trainer.get_the_model())
 
 @app.get('/AllRelevantColumns')
 def AllRelevantColumns():

@@ -7,7 +7,7 @@ class Tester:
     def __init__(self, MainDF:pd.DataFrame, MainModel:Trainer):
         self.TesterDF = MainDF[MainDF.index >= 0.7*MainDF.shape[0]]
         self.Model = MainModel
-        self.AllPrecents = self.Model.GetTheModel()
+        self.AllPrecents = self.Model.get_the_model()
         self.AllColumns = self.Model.AllRelevantColumns
         self.AllTablesLen = self.Model.AllTablesLen
         self.LenOfPrimaryTable = self.Model.LenOfPrimaryTable

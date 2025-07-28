@@ -1,9 +1,9 @@
-from Manager import Manager
+from FrontManager import FrontManager
 from fastapi import FastAPI
 
 app = FastAPI()
 
-manager = Manager()
+manager = FrontManager()
 manager.checker()
 
 @app.get('/')
@@ -11,5 +11,5 @@ def root():
     return 'Please Enter Data In The URL'
 
 @app.get('/check')
-def Naive(data):
+def naive(data):
     return manager.load_from_url(data)

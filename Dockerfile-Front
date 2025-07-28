@@ -1,0 +1,16 @@
+FROM python:slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY APIs/API-Front.py .
+COPY FrontManager.py .
+COPY AuxiFuncs.py .
+COPY Classifier.py .
+
+EXPOSE 8001
+
+CMD ["uvicorn", "API-Front:app", "--host", "0.0.0.0", "--port", "8001"]

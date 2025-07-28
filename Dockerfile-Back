@@ -1,0 +1,19 @@
+FROM python:slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY Data/phishing.csv .
+COPY APIs/API-Back.py .
+COPY BackManager.py .
+COPY Loader.py .
+COPY AuxiFuncs.py .
+COPY Trainer.py .
+COPY Tester.py .
+
+EXPOSE 8000
+
+CMD ["uvicorn", "API-Back:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -5,7 +5,7 @@ class Loader:
     def __init__(self):
         self.File = None
 
-    def load_from_path(self, path):
+    def load_from_path(self, path:str):
         try:
             self.File = pd.read_csv(path)
         except:

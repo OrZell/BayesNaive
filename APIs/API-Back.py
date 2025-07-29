@@ -5,7 +5,7 @@ from AuxiFuncs import AuxiFuncs
 app = FastAPI()
 
 BM = BackManager()
-BM.load_train_test()
+BM.load_clean_train_test()
 
 encode_dict = AuxiFuncs.encode_dict
 

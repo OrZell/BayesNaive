@@ -8,7 +8,7 @@ manager.checker()
 
 @app.get('/')
 def root():
-    return 'Please Enter data In The URL'
+    return 'Please Enter Data In The URL'
 
 @app.get('/check')
 def naive(data):

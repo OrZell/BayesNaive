@@ -9,7 +9,7 @@ class Manager:
 
     def __init__(self):
         self.Loader = Loader()
-        self.Logger = Logger('/app/Data/Logs.txt')
+        self.Logger = Logger('Data/Logs.txt')
         self.File = None
         self.Cleaner = None
         self.Trainer = None
@@ -17,11 +17,12 @@ class Manager:
         self.Classifier = None
 
     def load_file(self):
-        self.Loader.load_file_from_path('/app/Data/phishing.csv')
+        self.Loader.load_file_from_path('Data/phishing.csv')
         self.File = self.Loader.get_the_file()
 
     def clean_the_file(self):
-        self.Cleaner = Cleaner(self.File)
+        self.Cleaner = Cleaner()
+        self.Cleaner.load_dataframe(self.File)
         self.Cleaner.set_index()
         self.Cleaner.drop_null()
         self.Cleaner.drop_duplicates()

@@ -12,7 +12,7 @@ def root():
     return 'Please Enter Data In The URL as /check?data=...'
 
 @app.get('/check')
-async def Naive(data):
+async def naive(data):
     return manager.load_from_url(data)
 
 if __name__ == '__main__':

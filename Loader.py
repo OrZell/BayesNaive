@@ -1,9 +1,15 @@
 import pandas as pd
 
-class ReadCSV:
+class Loader:
 
-    def __init__(self, path):
-        self.CSV = pd.read_csv(path)
+    def __init__(self):
+        self.DataFrame = None
 
-    def GetCSV(self):
-        return self.CSV
+    def load_from_path(self, path):
+        try:
+            self.DataFrame = pd.read_csv(path)
+        except:
+            raise 'File Not Found'
+
+    def get_the_dataframe(self):
+        return self.DataFrame

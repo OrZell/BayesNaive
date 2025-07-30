@@ -1,22 +1,25 @@
 import pandas as pd
 
 
-class CleanFile:
+class Cleaner:
 
-    def __init__(self, df:pd.DataFrame):
-        self.CSVFile = df
+    def __init__(self):
+        self.File = None
 
-    def SetIndex(self):
-        self.CSVFile.set_index('Index', inplace=True)
+    def load_dataframe(self, dataframe:pd.DataFrame):
+        self.File = dataframe
 
-    def DropNull(self):
-        self.CSVFile.dropna(inplace=True)
+    def set_index(self):
+        self.File.set_index('Index', inplace=True)
 
-    def DropDuplicates(self):
-        self.CSVFile.drop_duplicates(inplace=True)
+    def drop_null(self):
+        self.File.dropna(inplace=True)
 
-    def ResetIndex(self):
-        self.CSVFile.reset_index(inplace=True, drop=True)
+    def drop_duplicates(self):
+        self.File.drop_duplicates(inplace=True)
 
-    def GetFile(self):
-        return self.CSVFile
+    def reset_index(self):
+        self.File.reset_index(inplace=True, drop=True)
+
+    def get_dataframe(self):
+        return self.File

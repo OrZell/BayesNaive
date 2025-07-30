@@ -6,11 +6,12 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY Data/phishing.csv .
 COPY APIs/API-Back.py .
+COPY Data/phishing.csv .
+COPY AuxiFuncs.py .
 COPY BackManager.py .
 COPY Loader.py .
-COPY AuxiFuncs.py .
+COPY Cleaner.py .
 COPY Trainer.py .
 COPY Tester.py .
 

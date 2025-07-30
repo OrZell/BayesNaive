@@ -13,7 +13,7 @@ class BackManager:
         self.Tester = None
 
     def load_file(self):
-        self.Loader.load_from_path('../Data/phishing.csv')
+        self.Loader.load_from_path('phishing.csv')
         # self.Loader.load_from_path('Data/phishing.csv')
         self.DataFrame = self.Loader.get_the_file()
 
